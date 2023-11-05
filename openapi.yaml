@@ -1,0 +1,190 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ""
+    version: 0.0.1
+paths:
+    /order/getUser/{id}:
+        get:
+            tags:
+                - Order
+            operationId: Order_GetUserByOrderId
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.order.v1.GetUserByOrderIdReply'
+    /user:
+        get:
+            tags:
+                - User
+            operationId: User_GetUsers
+            parameters:
+                - name: username
+                  in: query
+                  schema:
+                    type: string
+                - name: curPage
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.GetUsersReply'
+        put:
+            tags:
+                - User
+            operationId: User_UpdateUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.user.v1.UpdateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UpdateUserReply'
+        post:
+            tags:
+                - User
+            operationId: User_SaveUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.user.v1.AddUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.AddUserReply'
+    /user/{id}:
+        get:
+            tags:
+                - User
+            operationId: User_GetUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.GetUserReply'
+        delete:
+            tags:
+                - User
+            operationId: User_RemoveUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.RemoveUserReply'
+components:
+    schemas:
+        api.order.v1.GetUserByOrderIdReply:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/api.order.v1.UserDto'
+        api.order.v1.UserDto:
+            type: object
+            properties:
+                id:
+                    type: string
+                username:
+                    type: string
+        api.user.v1.AddUserReply:
+            type: object
+            properties:
+                res:
+                    type: boolean
+        api.user.v1.AddUserRequest:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/api.user.v1.UserVo'
+        api.user.v1.GetUserReply:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/api.user.v1.UserDto'
+        api.user.v1.GetUsersReply:
+            type: object
+            properties:
+                users:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.user.v1.UserDto'
+                curPage:
+                    type: string
+                total:
+                    type: string
+        api.user.v1.RemoveUserReply:
+            type: object
+            properties:
+                res:
+                    type: boolean
+        api.user.v1.UpdateUserReply:
+            type: object
+            properties:
+                res:
+                    type: boolean
+        api.user.v1.UpdateUserRequest:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/api.user.v1.UserVo'
+        api.user.v1.UserDto:
+            type: object
+            properties:
+                id:
+                    type: string
+                username:
+                    type: string
+        api.user.v1.UserVo:
+            type: object
+            properties:
+                id:
+                    type: string
+                username:
+                    type: string
+                password:
+                    type: string
+tags:
+    - name: Order
+    - name: User

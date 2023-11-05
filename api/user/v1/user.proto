@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+//引入proto的http的类库
+import "google/api/annotations.proto";
+
+option go_package = "user/api/user/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.user.v1";
+
+service User {
+	rpc GetUser (GetUserRequest) returns (GetUserReply){
+		option (google.api.http) = {
+			get: "/user/{id}"
+		};
+	};
+
+	rpc GetUsers (GetUsersRequest) returns (GetUsersReply){
+		option (google.api.http) = {
+			get: "/user"
+		};
+	};
+
+	rpc RemoveUser (RemoveUserRequest) returns (RemoveUserReply){
+		option (google.api.http) = {
+			delete: "/user/{id}"
+		};
+	};
+
+	rpc SaveUser (AddUserRequest) returns (AddUserReply){
+		option (google.api.http) = {
+			post: "/user",
+			body: "*"
+		};
+	};
+
+	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply){
+		option (google.api.http) = {
+			put: "/user",
+			body: "*"
+		};
+	};
+}
+
+message UserVo {
+	int64 id = 1;
+	string username = 2;
+	string password = 3;
+}
+
+message UserDto {
+	int64 id = 1;
+	string username = 2;
+}
+
+message GetUserRequest {
+	int64 id = 1;
+}
+message GetUserReply {
+	UserDto user = 3;
+}
+
+message GetUsersRequest {
+	string username = 1;
+	int64 curPage = 2;
+}
+
+message GetUsersReply {
+	repeated UserDto users = 3;
+	int64 curPage = 4;
+	int64 total = 5;
+
+}
+
+message RemoveUserRequest {
+	int64 id = 1;
+}
+
+message RemoveUserReply {
+	bool res = 3;
+}
+
+message AddUserRequest {
+	UserVo user = 1;
+}
+
+message AddUserReply {
+	bool res = 3;
+}
+
+message UpdateUserRequest {
+	UserVo user = 1;
+}
+
+message UpdateUserReply {
+	bool res = 3;
+}

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package api.order.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "order/api/order/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.order.v1";
+
+service Order {
+	rpc GetUserByOrderId (GetUserByOrderIdRequest) returns (GetUserByOrderIdReply) {
+		option (google.api.http) = {
+			get: "/order/getUser/{id}"
+		};
+	};
+}
+
+message UserDto {
+	int64 id = 1;
+	string username = 2;
+}
+
+message GetUserByOrderIdRequest {
+	int64 id = 1;
+}
+message GetUserByOrderIdReply {
+	UserDto user = 1;
+}
