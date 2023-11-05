@@ -1,10 +1,10 @@
 package order
 
 import (
+	"context"
 	"github.com/go-kratos/kratos/contrib/registry/nacos/v2"
 	"github.com/go-kratos/kratos/v2/log"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"github.com/go-kratos/kratos/v2/transport/grpc"
 	userv1 "kratos-demo/api/user/v1"
 	"kratos-demo/internal/conf"
 )
@@ -14,13 +14,13 @@ type GRPCClient struct {
 }
 
 func NewGRPCClient(c *conf.Server, reg *nacos.Registry, logger log.Logger) (*GRPCClient, func(), error) {
-	/*	conn, err := kgrpc.DialInsecure(
+	conn, err := grpc.DialInsecure(
 		context.Background(),
-		kgrpc.WithEndpoint("discovery:///user"),
-		kgrpc.WithDiscovery(reg),
-	)*/
-	conn, err := grpc.Dial(":9000", grpc.WithTransportCredentials(insecure.NewCredentials()))
+		grpc.WithEndpoint("discovery:///user.grpc"),
+		grpc.WithDiscovery(reg),
+	)
 	if err != nil {
+		log.NewHelper(logger).Errorf("创建连接时发生错误,原因:%v", err)
 		return nil, nil, err
 	}
 	cleanup := func() {
