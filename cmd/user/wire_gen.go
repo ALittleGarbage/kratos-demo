@@ -25,7 +25,7 @@ import (
 
 // wireApp init kratos application.
 func wireApp(server *conf.Server, data *conf.Data, confRegistrar *conf.Registrar, logger log.Logger) (*kratos.App, func(), error) {
-	userData, cleanup, err := user.NewData(data, logger)
+	userData, cleanup, err := user.NewData(data)
 	if err != nil {
 		return nil, nil, err
 	}
